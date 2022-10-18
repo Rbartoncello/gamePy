@@ -72,3 +72,6 @@ class Character:
 
     def get_lenght_sound(self):
         return self.sound.get_length()
+    
+    def set_image(self, image_path):
+        self.character = pygame.transform.scale(pygame.image.load(image_path), (self.width, self.height))

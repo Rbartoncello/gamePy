@@ -7,7 +7,7 @@ from Rect import Rect
 import time
 
 ANCHO_VENTANA = 800
-ALTO_VENTANA = 800
+ALTO_VENTANA = 950
 FONT_SIZE = 50
 
 
@@ -19,28 +19,26 @@ def create_zombies(amount: int):
 
 
 def create_sounds(pygame):
-    sounds = {
-        'background': pygame.mixer.Sound("./background_sound.wav"),
+    return {
+        'background': pygame.mixer.Sound("./background.wav"),
         'game_over': pygame.mixer.Sound("./game_over.mp3")
     }
-    return sounds
 
 
 def create_texts(pygame, player):
-    font = pygame.font.SysFont("Arial Narrow", FONT_SIZE)
-    font_2 = pygame.font.SysFont("Arial Narrow", 150)
-    texts = {
-        'new_game': font.render("Nuevo partida", True, colores.GREEN),
-        'exit': font.render("Salir", True, colores.RED1),
-        'submit': font.render("Si", True, colores.GREEN),
-        'cancel': font.render("No", True, colores.RED1),
-        'should_exit': font.render("Desea salir", True, colores.BLUE),
-        'select_character': font.render("Seleccione el personaje de desea ser", True, colores.CYAN4),
-        'level': font.render("Nivel: {}".format(player.get_level()), True, colores.RED4),
-        'life': font.render("Vida: x{}".format(player.get_life()), True, colores.RED4),
-        'game over': font_2.render("GAME OVER....", True, colores.RED3),
+    font_text = pygame.font.SysFont("Arial Narrow", FONT_SIZE)
+    font_game_over = pygame.font.SysFont("Arial Narrow", 150)
+    return {
+        'new_game': font_text.render("Nuevo partida", True, colores.GREEN),
+        'exit': font_text.render("Salir", True, colores.RED1),
+        'submit': font_text.render("Si", True, colores.GREEN),
+        'cancel': font_text.render("No", True, colores.RED1),
+        'should_exit': font_text.render("Desea salir", True, colores.BLUE),
+        'select_character': font_text.render("Seleccione el personaje de desea ser", True, colores.CYAN4),
+        'level': font_text.render("Nivel: {}".format(player.get_level()), True, colores.RED4),
+        'life': font_text.render("Vida: x{}".format(player.get_life()), True, colores.RED4),
+        'game over': font_game_over.render("GAME OVER....", True, colores.RED3),
     }
-    return texts
 
 
 def create_buttons():
@@ -54,13 +52,12 @@ def create_buttons():
 
 
 def create_characters():
-    characters = {
-        '1': Player(150, 150, "./character_1.png", ANCHO_VENTANA, ALTO_VENTANA, 5 / 16, "./iron_man.mp3"),
-        '2': Player(150, 150, "./character_2.png", ANCHO_VENTANA, ALTO_VENTANA, 11 / 16, "./batamnandh.mp3"),
-        'save': Character(50, 50, "./character_to_help.png", ANCHO_VENTANA, ALTO_VENTANA, 11 / 16, "./helped_character_sound.wav"),
-        'main': Player(150, 150, "./character_1.png", ANCHO_VENTANA, ALTO_VENTANA, 5 / 16, "./select_character_sound.wav"),
+    return {
+        '1': Player(150, 150, "./character_1.png", ANCHO_VENTANA, ALTO_VENTANA, 5 / 16, "./player_1.mp3"),
+        '2': Player(150, 150, "./character_2.png", ANCHO_VENTANA, ALTO_VENTANA, 11 / 16, "./player_2.mp3"),
+        'save': Character(50, 50, "./character_to_help.png", ANCHO_VENTANA, ALTO_VENTANA, 11 / 16, "./helped_character.wav"),
+        'main': Player(50, 50, "./character_1.png", ANCHO_VENTANA, ALTO_VENTANA, 5 / 16, "./select_sound.wav"),
     }
-    return characters
 
 
 def create_rects(gif):
@@ -88,7 +85,7 @@ def is_object_a_touching_by_object_b(object_a, object_b):
 def randomization_character(main, save, list_zombies):
     main.update_random()
     save.update_random()
-    
+
     for zombie in list_zombies:
         zombie.update_random()
         while is_object_a_touching_by_object_b(main, zombie):
@@ -109,13 +106,12 @@ pygame.display.set_caption("Game")
 timer = pygame.USEREVENT + 0
 pygame.time.set_timer(timer, 100)
 
-gif = pygame.image.load("./tumblr_lmwsamrrxT1qagx30.0.0.gif")
-gif = pygame.transform.scale(gif, (250, 250))
+gif = pygame.transform.scale(pygame.image.load("./end_game.gif"), (250, 250))
 
 characters = create_characters()
 texts = create_texts(pygame, characters['main'])
 buttons = create_buttons()
-list_zombies = create_zombies(10)
+list_zombies = {}
 rects = create_rects(gif)
 
 flag_run = True
@@ -148,14 +144,12 @@ while flag_run:
             if characters['1'].get_rect().collidepoint(event.pos):
                 characters['1'].do_sound(sounds['background'], characters['1'].get_lenght_sound())
                 player_select = True
-                characters['main'] = characters['1']
-                characters['2'].delete()
+                characters['main'].set_image('./character_1.png')
                 break
             if characters['2'].get_rect().collidepoint(event.pos):
                 characters['2'].do_sound(sounds['background'], characters['2'].get_lenght_sound())
                 player_select = True
-                characters['main'] = characters['2']
-                characters['1'].delete()
+                characters['main'].set_image('./character_2.png')
                 break
         if is_playing:
             for zombie in list_zombies:
@@ -187,18 +181,17 @@ while flag_run:
 
     if new_game:
         if player_select:
-            rects['select_character'].delete()
-            characters['main'].edit_scale(50, 50)
-            
+            list_zombies = create_zombies(10)
             randomization_character(characters['main'], characters['save'], list_zombies)
 
             player_select = False
             is_playing = True
         elif is_playing:
             characters['main'].move_by_key(pygame.key.get_pressed())
-            
+
             characters['main'].to_show(screen)
-            characters['save'].to_show(screen)
+            characters['save'].to_show(screen) 
+            
             for zombie in list_zombies: zombie.to_show(screen)
 
             pygame.draw.rect(screen, colores.AQUAMARINE3, rects['level life'])
@@ -220,11 +213,12 @@ while flag_run:
         buttons['submit'].to_show(colores.WHITE, screen)
         buttons['cancel'].to_show(colores.WHITE, screen)
 
-        screen.blit(gif, (275, 275))
+        screen.blit(gif, (275, 355))
         rects['should_exit'].to_show(texts['should_exit'], screen)
     elif game_over:
-        for zombie in list_zombies: zombie.delete()
-        characters['main'].delete()
+        is_playing = False
+        for zombie in list_zombies: del zombie
+        characters['main'].reset()
         rects['game over'].to_show(texts['game over'], screen)
         pygame.display.flip()
         sounds['background'].stop()
@@ -233,7 +227,7 @@ while flag_run:
         time.sleep(sounds['game_over'].get_length())
         sounds['game_over'].stop()
         sounds['background'].play()
-        flag_run = False
+        game_over = False
     else:
         buttons['new_game'].to_show(colores.WHITE, screen)
         buttons['exit'].to_show(colores.WHITE, screen)

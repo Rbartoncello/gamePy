@@ -16,3 +16,7 @@ class Player(Character):
     def set_life(self): self.life -= 1
     
     def is_dead(self): return self.life == 0
+    
+    def reset(self):
+        self.life = 3
+        self.level = 1
