@@ -4,77 +4,79 @@ from Character import Character
 from Player import Player
 from Button import Button
 from Rect import Rect
+from constats import *
 import time
-
-ANCHO_VENTANA = 800
-ALTO_VENTANA = 950
-FONT_SIZE = 50
-
 
 def create_zombies(amount: int):
     zombies = []
     for i in range(amount):
-        zombies.append(Character(50, 50, "./zombie.png", ANCHO_VENTANA, ALTO_VENTANA, 5 / 16))
+        zombies.append(Character(50, 50, "./images/zombie.png", ANCHO_VENTANA, ALTO_VENTANA, 5 / 16))
     return zombies
 
 
 def create_sounds(pygame):
     return {
-        'background': pygame.mixer.Sound("./background.wav"),
-        'game_over': pygame.mixer.Sound("./game_over.mp3")
+        'background': pygame.mixer.Sound("./sounds/background.wav"),
+        'game_over': pygame.mixer.Sound("./sounds/game_over.mp3")
     }
 
 
 def create_texts(pygame, player):
     font_text = pygame.font.SysFont("Arial Narrow", FONT_SIZE)
-    font_game_over = pygame.font.SysFont("Arial Narrow", 150)
+    font_name_game = pygame.font.SysFont("Arial Narrow", FONT_SIZE_NAME_GAME)
+    font_game_over = pygame.font.SysFont("Arial Narrow", FONT_SIZE_GAME_OVER)
     return {
-        'new_game': font_text.render("Nuevo partida", True, colores.GREEN),
-        'exit': font_text.render("Salir", True, colores.RED1),
-        'submit': font_text.render("Si", True, colores.GREEN),
-        'cancel': font_text.render("No", True, colores.RED1),
-        'should_exit': font_text.render("Desea salir", True, colores.BLUE),
-        'select_character': font_text.render("Seleccione el personaje de desea ser", True, colores.CYAN4),
-        'level': font_text.render("Nivel: {}".format(player.get_level()), True, colores.RED4),
-        'life': font_text.render("Vida: x{}".format(player.get_life()), True, colores.RED4),
-        'game over': font_game_over.render("GAME OVER....", True, colores.RED3),
+        'name game': font_name_game.render(NAME_GAME, True, colores.CORAL1),
+        'new_game': font_text.render(NEW_GAME_TEXT, True, colores.GREEN),
+        'exit': font_text.render(EXIT_TEXT, True, colores.RED1),
+        'submit': font_text.render(SUBMIT_TEXT, True, colores.GREEN),
+        'cancel': font_text.render(CANCEL_TEXT, True, colores.RED1),
+        'should_exit': font_text.render(SHOULD_EXIT_TEXT, True, colores.BLUE),
+        'select_character': font_text.render(SELECT_CHARACTER_TEXT, True, colores.CYAN4),
+        'level': font_text.render("{}{}".format(LEVEL_TEXT, player.get_level()), True, colores.RED4),
+        'life': font_text.render("{}{}".format(LIFE_TEXT, player.get_life()), True, colores.RED4),
+        'game over': font_game_over.render(GAME_OVER_TEXT, True, colores.RED3),
     }
 
 
 def create_buttons():
     buttons = {
-        'new_game': Button(400, 50, ANCHO_VENTANA, ALTO_VENTANA, ANCHO_VENTANA / 2, ALTO_VENTANA / 2, texts['new_game'], './select_sound.wav'),
-        'submit': Button(100, 50, ANCHO_VENTANA, ALTO_VENTANA, ANCHO_VENTANA * 5 / 16, ALTO_VENTANA * 3 / 4, texts['submit'], './select_sound.wav'),
-        'cancel': Button(100, 50, ANCHO_VENTANA, ALTO_VENTANA, ANCHO_VENTANA * 11 / 16, ALTO_VENTANA * 3 / 4, texts['cancel'], './select_sound.wav')
+        'new_game': Button(400, 50, ANCHO_VENTANA, ALTO_VENTANA, ANCHO_VENTANA / 2, ALTO_VENTANA / 2, texts['new_game'], './sounds/select_sound.wav'),
+        'submit': Button(100, 50, ANCHO_VENTANA, ALTO_VENTANA, ANCHO_VENTANA * 5 / 16, ALTO_VENTANA * 3 / 4, texts['submit'], './sounds/select_sound.wav'),
+        'cancel': Button(100, 50, ANCHO_VENTANA, ALTO_VENTANA, ANCHO_VENTANA * 11 / 16, ALTO_VENTANA * 3 / 4, texts['cancel'], './sounds/select_sound.wav')
     }
-    buttons.update({'exit': Button(400, 50, ANCHO_VENTANA, ALTO_VENTANA, ANCHO_VENTANA / 2, buttons['new_game'].get_center_y() + texts['new_game'].get_height() + 30, texts['exit'], './select_sound.wav')})
+    buttons.update({'exit': Button(400, 50, ANCHO_VENTANA, ALTO_VENTANA, ANCHO_VENTANA / 2, buttons['new_game'].get_center_y() + texts['new_game'].get_height() + 30, texts['exit'], './sounds/select_sound.wav')})
     return buttons
 
 
 def create_characters():
     return {
-        '1': Player(150, 150, "./character_1.png", ANCHO_VENTANA, ALTO_VENTANA, 5 / 16, "./player_1.mp3"),
-        '2': Player(150, 150, "./character_2.png", ANCHO_VENTANA, ALTO_VENTANA, 11 / 16, "./player_2.mp3"),
-        'save': Character(50, 50, "./character_to_help.png", ANCHO_VENTANA, ALTO_VENTANA, 11 / 16, "./helped_character.wav"),
-        'main': Player(50, 50, "./character_1.png", ANCHO_VENTANA, ALTO_VENTANA, 5 / 16, "./select_sound.wav"),
+        '1': Player(150, 150, "./images/character_1.png", ANCHO_VENTANA, ALTO_VENTANA, 5 / 16, "./sounds/player_1.mp3"),
+        '2': Player(150, 150, "./images/character_2.png", ANCHO_VENTANA, ALTO_VENTANA, 11 / 16, "./sounds/player_2.mp3"),
+        'save': Character(50, 50, "./images/character_to_help.png", ANCHO_VENTANA, ALTO_VENTANA, 11 / 16, "./sounds/helped_character.wav"),
+        'main': Player(50, 50, "./images/character_1.png", ANCHO_VENTANA, ALTO_VENTANA, 5 / 16, "./sounds/select_sound.wav"),
     }
 
 
 def create_rects(gif):
     rects = {
+        'name game': Rect(texts['name game'].get_width(), texts['name game'].get_height(), ANCHO_VENTANA, ALTO_VENTANA, 1 / 2),
         'should_exit': Rect(texts['should_exit'].get_width(), 30, ANCHO_VENTANA, ALTO_VENTANA, 1 / 2),
         'select_character': Rect(texts['select_character'].get_width(), 30, ANCHO_VENTANA, ALTO_VENTANA, 1 / 2),
         'level': Rect(texts['level'].get_width(), 30, ANCHO_VENTANA, ALTO_VENTANA, 0),
         'life': Rect(texts['life'].get_width(), 30, ANCHO_VENTANA, ALTO_VENTANA, 0),
         'game over': Rect(texts['game over'].get_width(), 30, ANCHO_VENTANA, ALTO_VENTANA, 0),
-        'level life': Rect(ANCHO_VENTANA + 200, 50, ANCHO_VENTANA, ALTO_VENTANA, 0)
+        'level life': Rect(ANCHO_VENTANA + 200, 50, ANCHO_VENTANA, ALTO_VENTANA, 0),
+        'image exit': Rect(gif.get_width(), gif.get_height(), ANCHO_VENTANA, ALTO_VENTANA, 0)
     }
+    rects['name game'].update(rects['name game'].get_rect().centerx, ALTO_VENTANA/3)
     rects['should_exit'].update(rects['should_exit'].get_rect().centerx, ALTO_VENTANA / 2 + gif.get_height() / 2 + 20)
     rects['select_character'].update(rects['select_character'].get_rect().centerx, ALTO_VENTANA * 5 / 16)
     rects['level'].update(texts['level'].get_width() / 2 + 10, ALTO_VENTANA + 25)
     rects['life'].update(ANCHO_VENTANA - texts['life'].get_width() / 2 - 10, ALTO_VENTANA + 25)
     rects['game over'].update(ANCHO_VENTANA / 2, ALTO_VENTANA / 2)
     rects['level life'].update(ANCHO_VENTANA/2, ALTO_VENTANA + 25)
+    rects['image exit'].update(ANCHO_VENTANA/2, ALTO_VENTANA/2)
 
     return rects
 
@@ -106,7 +108,7 @@ pygame.display.set_caption("Game")
 timer = pygame.USEREVENT + 0
 pygame.time.set_timer(timer, 100)
 
-gif = pygame.transform.scale(pygame.image.load("./end_game.gif"), (250, 250))
+gif = pygame.transform.scale(pygame.image.load("./images/end_game.gif"), (300, 300))
 
 characters = create_characters()
 texts = create_texts(pygame, characters['main'])
@@ -144,12 +146,12 @@ while flag_run:
             if characters['1'].get_rect().collidepoint(event.pos):
                 characters['1'].do_sound(sounds['background'], characters['1'].get_lenght_sound())
                 player_select = True
-                characters['main'].set_image('./character_1.png')
+                characters['main'].set_image('./images/character_1.png')
                 break
             if characters['2'].get_rect().collidepoint(event.pos):
                 characters['2'].do_sound(sounds['background'], characters['2'].get_lenght_sound())
                 player_select = True
-                characters['main'].set_image('./character_2.png')
+                characters['main'].set_image('./images/character_2.png')
                 break
         if is_playing:
             for zombie in list_zombies:
@@ -213,7 +215,7 @@ while flag_run:
         buttons['submit'].to_show(colores.WHITE, screen)
         buttons['cancel'].to_show(colores.WHITE, screen)
 
-        screen.blit(gif, (275, 355))
+        screen.blit(gif, rects['image exit'])
         rects['should_exit'].to_show(texts['should_exit'], screen)
     elif game_over:
         is_playing = False
@@ -229,6 +231,7 @@ while flag_run:
         sounds['background'].play()
         game_over = False
     else:
+        rects['name game'].to_show(texts['name game'], screen)
         buttons['new_game'].to_show(colores.WHITE, screen)
         buttons['exit'].to_show(colores.WHITE, screen)
 

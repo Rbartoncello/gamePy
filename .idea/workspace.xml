@@ -5,18 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c0fa447-ddcf-499a-9ace-c17095e8f4f4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Character.py" beforeDir="false" afterPath="$PROJECT_DIR$/Character.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Player.py" beforeDir="false" afterPath="$PROJECT_DIR$/Player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rect.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rect.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/background_sound.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/batamnandh.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gama_over_sound.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/helped_character_sound.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/iron_man.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/background.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/character_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/character_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/character_to_help.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/end_game.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_over.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/helped_character.wav" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/select_character_sound.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tumblr_lmwsamrrxT1qagx30.0.0.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/player_1.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/player_2.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/select_character.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/select_sound.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zombie.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +83,7 @@
       <workItem from="1665941942295" duration="6843000" />
       <workItem from="1666043225116" duration="3947000" />
       <workItem from="1666108262598" duration="1759000" />
-      <workItem from="1666110261228" duration="1478000" />
+      <workItem from="1666110261228" duration="2167000" />
     </task>
     <servers />
   </component>

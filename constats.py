@@ -1,0 +1,17 @@
+ANCHO_VENTANA = 950
+ALTO_VENTANA = 950
+FONT_SIZE = 50
+FONT_SIZE_NAME_GAME = 50
+FONT_SIZE_GAME_OVER = 50
+
+# TEXTS
+NAME_GAME = 'name game'
+NEW_GAME_TEXT = 'Nuevo partida'
+EXIT_TEXT = 'Salir'
+SUBMIT_TEXT = 'Si'
+CANCEL_TEXT = 'No'
+SHOULD_EXIT_TEXT = 'Desea salir'
+SELECT_CHARACTER_TEXT = 'Seleccione el personaje de desea ser'
+LEVEL_TEXT = 'Nivel: '
+LIFE_TEXT = 'Vida: x'
+GAME_OVER_TEXT = 'GAME OVER....'
